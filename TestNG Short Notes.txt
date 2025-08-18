@@ -1,0 +1,139 @@
+Day13- TestNG
+==============
+Agenda
+I.  Why TestNG? And it’s advantage
+II. TestNG Installation and Setting the Perspective to Java in Eclipse
+III. Creation of TestNG class
+IV. TestNG Annotations
+V. Execution of TestNG classes
+VI. Launching a browser and opening a website using TestNG
+
+
+
+I.  Introduction to TestNG
+------------------------------
+  - TestNG (Test Next Generation) is an open-source automated testing framework 
+  - TestNG stands for Test Next Generation.
+
+  - It’s an advanced testing framework inspired by JUnit & NUnit.
+
+  - Supports unit, functional, integration, and end-to-end testing.
+
+  - Key features: annotations, grouping, parallel execution, and HTML reports.
+
+Advantages of TestNG
+---------------------
+  - Annotations: Like @Test, @BeforeMethod, etc., control execution.
+
+  - Parallel Execution: Run tests simultaneously.
+
+  - Grouping: Organize tests using groups.
+
+  - Data-driven Testing: Via @DataProvider.
+
+  - Dependency Management: dependsOnMethods attribute.
+
+  - Tool Integration: Works with Selenium, Maven, Jenkins, etc.
+
+II. Installing TestNG in Eclipse and setup
+-------------------------------------------
+  - Open Eclipse Marketplace → Search TestNG → Install → Restart Eclipse.
+
+  - Check installation via Window → Preferences → TestNG.
+
+  - Java Perspective in Eclipse:
+
+  - Ensures optimal view/tools for Java development.
+
+  - Set via: Window → Perspective → Open Perspective → Java.
+
+III. Creating a TestNG Class
+---------------------------
+Use Maven: Add TestNG dependency in pom.xml.
+
+<dependency>
+  <groupId>org.testng</groupId>
+  <artifactId>testng</artifactId>
+  <version>7.4.0</version>
+  <scope>test</scope>
+</dependency>
+Create a package and class using New → Other → TestNG Class.
+
+IV. TestNG Annotations & Execution Order
+-----------------------------------------
+Annotation	Order	Description
+@BeforeSuite	1st	Before all tests in suite
+@BeforeTest	2nd	Before any <test> in XML
+@BeforeClass	3rd	Before the first method in class
+@BeforeMethod	4th	Before each @Test method
+@Test	        5th	Actual test method
+@AfterMethod	6th	After each @Test method
+@AfterClass	7th	After all methods in class
+@AfterTest	8th	After all <test> in XML
+@AfterSuite	9th	After all tests in suite
+
+V. Executing TestNG Tests
+--------------------------
+      A TestNG class can be executed in two ways:
+
+a.	As a TestNG Test Execution (Without XML (Direct Run))– Running a testNG class directly without using an XML file.
+
+b.	As a TestNG Suite Execution (Using testng.xml)– Running a testNG class using a testng.xml configuration file.
+
+a. Without XML (Direct Run):
+
+    -  Right-click class → Run As → TestNG Test.
+
+    - Ideal for single class or beginner practice.
+
+b. Using testng.xml:
+
+Convert class → TestNG → Convert to TestNG.
+
+Add multiple classes, groups, parameters, etc.
+
+Right-click XML → Run As → TestNG Suite.
+
+Sample XML File (testng.xml)
+--------------------------
+<suite name="MySuite">
+  <test name="MyTest">
+    <classes>
+      <class name="testngpractices.SampleTestNGClass"/>
+    </classes>
+  </test>
+</suite>
+VI. Launching Browser and opening site Using Selenium WebDriver with TestNG
+-------------------------------------------------------------
+
+Add dependencies: TestNG, Selenium, WebDriverManager.
+
+
+<dependency>
+  <groupId>org.seleniumhq.selenium</groupId>
+  <artifactId>selenium-java</artifactId>
+</dependency>
+<dependency>
+  <groupId>io.github.bonigarcia</groupId>
+  <artifactId>webdrivermanager</artifactId>
+</dependency>
+Sample Code:
+
+
+@BeforeMethod
+public void setup() {
+    WebDriverManager.chromedriver().setup();
+    driver = new ChromeDriver();
+}
+
+@Test
+public void openGoogle() {
+    driver.get("https://www.google.com");
+}
+
+@AfterMethod
+public void tearDown() {
+    driver.quit();
+}
+Execute using Run As → TestNG Test or via testng.xml.
+
